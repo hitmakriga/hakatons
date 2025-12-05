@@ -1,1 +1,292 @@
-
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalogs - 3 elementi platumā</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #F4A460;
+            --light-color: #FAEBD7;
+            --dark-color: #5D2906;
+            --text-color: #333;
+            --white: #fff;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: var(--dark-color);
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            display: inline-block;
+            padding-bottom: 10px;
+            position: relative;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Grid layout - 3 elementi platumā */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+        
+        .catalog-item {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .catalog-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .item-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .catalog-item:hover .item-image img {
+            transform: scale(1.05);
+        }
+        
+        .item-content {
+            padding: 1.5rem;
+        }
+        
+        .item-title {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .item-description {
+            color: var(--text-color);
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+        }
+        
+        .item-price {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .item-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 10px 22px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-color);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .catalog-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .catalog-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section-title">
+            <h2>Grāmatu skapju katalogs</h2>
+            <p style="margin-top: 1rem; color: #666;">Piedāvājam plašu sortimentu kvalitatīvu grāmatu skapju</p>
+        </div>
+        
+        <div class="catalog-grid">
+            <!-- 1. produkts -->
+            <div class="catalog-item">
+                <div class="item-image">
+                    <img src="https://images.unsplash.com/photo-1551029506-0807df4e2031?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Klasisks ozolkoka skapis">
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Klasisks ozolkoka skapis</h3>
+                    <p class="item-description">Tradicionāls ozolkoka skapis ar 4 plauktiem. Izgatavots no augstas kvalitātes masīvkoka, ar dabīgu koka tekstūru un eļļas apdari.</p>
+                    <div class="item-price">€ 459.00</div>
+                    <div class="item-meta">
+                        <span>Izmēri: 180x80x35 cm</span>
+                        <span>Materiāls: Ozols</span>
+                    </div>
+                    <a href="#" class="btn">Skatīt vairāk</a>
+                </div>
+            </div>
+            
+            <!-- 2. produkts -->
+            <div class="catalog-item">
+                <div class="item-image">
+                    <img src="https://images.unsplash.com/photo-1612774412771-005ed8e861d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mūsdienīgs skapis ar apgaismojumu">
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Mūsdienīgs skapis ar LED apgaismojumu</h3>
+                    <p class="item-description">Elegants skapis ar iebūvētu LED apgaismojumu. Īpaši piemērots vakarām, kad vēlaties izcelt savu grāmatu kolekciju.</p>
+                    <div class="item-price">€ 689.00</div>
+                    <div class="item-meta">
+                        <span>Izmēri: 200x90x40 cm</span>
+                        <span>Krāsa: Balts melns</span>
+                    </div>
+                    <a href="#" class="btn">Skatīt vairāk</a>
+                </div>
+            </div>
+            
+            <!-- 3. produkts -->
+            <div class="catalog-item">
+                <div class="item-image">
+                    <img src="https://images.unsplash.com/photo-1618365908648-e71f4d8c5333?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Iebūvēts grāmatu skapis">
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Iebūvēts stūra skapis</h3>
+                    <p class="item-description">Iebūvēts risinājums mazām telpām. Efektīvi izmanto stūra telpu, piedāvājot papildus glabāšanas vietu apakšējos nodalījumos.</p>
+                    <div class="item-price">€ 799.00</div>
+                    <div class="item-meta">
+                        <span>Pielāgojams izmērs</span>
+                        <span>Materiāls: Bērza finieris</span>
+                    </div>
+                    <a href="#" class="btn">Skatīt vairāk</a>
+                </div>
+            </div>
+            
+            <!-- 4. produkts -->
+            <div class="catalog-item">
+                <div class="item-image">
+                    <img src="https://images.unsplash.com/photo-1593069567131-53a0614dde1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mazs stūra skapis">
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Mazs stūra skapis</h3>
+                    <p class="item-description">Kompakts risinājums mājām ar ierobežotu vietu. Lieliski iederas stūrī, nepieslogojot telpu. 3 plaukti un aizvērts nodalījums apakšā.</p>
+                    <div class="item-price">€ 329.00</div>
+                    <div class="item-meta">
+                        <span>Izmēri: 120x60x30 cm</span>
+                        <span>Materiāls: Priede</span>
+                    </div>
+                    <a href="#" class="btn">Skatīt vairāk</a>
+                </div>
+            </div>
+            
+            <!-- 5. produkts -->
+            <div class="catalog-item">
+                <div class="item-image">
+                    <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Vintage stils skapis">
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Vintage stila skapis ar stikla durvīm</h3>
+                    <p class="item-description">Retro stila skapis ar stikla durvīm, kas aizsargā grāmatas no putekļiem. Nostalģisks dizains, kas piešķirs mājai īpašu atmosfēru.</p>
+                    <div class="item-price">€ 599.00</div>
+                    <div class="item-meta">
+                        <span>Izmēri: 160x75x35 cm</span>
+                        <span>Stils: Vintage</span>
+                    </div>
+                    <a href="#" class="btn">Skatīt vairāk</a>
+                </div>
+            </div>
+            
+            <!-- 6. produkts -->
+            <div class="catalog-item">
+                <div class="item-image">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mūsdienīgs plauktu sistēma">
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">Modulārā plauktu sistēma</h3>
+                    <p class="item-description">Modulāra sistēma, ko var papildināt ar papildu elementiem. Ļauj izveidot unikālu grāmatu krātuvi, kas atbilst jūsu vajadzībām.</p>
+                    <div class="item-price">€ 429.00</div>
+                    <div class="item-meta">
+                        <span>Sākot no € 429</span>
+                        <span>Pielāgojama sistēma</span>
+                    </div>
+                    <a href="#" class="btn">Skatīt vairāk</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
