@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Skenēšana - Telefons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 400px;
+            width: 100%;
+            color: #333;
+        }
+        h1 { color: #333; font-size: 28px; margin-bottom: 20px; }
+        .info {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            word-break: break-all;
+            font-size: 14px;
+        }
+        button {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: all 0.3s;
+            width: 100%;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        button:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+        button:active { transform: scale(0.95); }
+        .palidziba { color: #666; font-size: 12px; margin-top: 20px; }
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #43e97b;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .success { color: #43e97b; font-size: 60px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Telefona Skenēšana</h1>
+        
+        <div id="skenesanaSekcija">
+            <p style="font-size: 18px;">Tu noskenēji QR kodu no datora!</p>
+            
+            <div class="info" id="info">
+                Iegūst sesijas informāciju...
+            </div>
+            
+            <button onclick="apstiprinat()">
+                ✅ APSTIPRINĀT
+            </button>
+            
+            <p>Nospied pogu, lai paziņotu datoram, ka skenēšana izdevusies</p>
+        </div>
+        
+        <div id="apstiprinatsSekcija" style="display: none;">
+            <div class="success">✅</div>
+            <h2 style="color: #43e97b;">Paldies!</h2>
+            <p>Dators ir saņēmis apstiprinājumu.</p>
+            <p>Tagad vari aizvērt šo lapu.</p>
+            <div class="loader"></div>
+            <p>Aizveras automātiski...</p>
+        </div>
+        
+        <div class="palidziba">
+            * Šī lapa atveras, kad tu skenē QR kodu ar telefonu
+        </div>
+    </div>
+
+    <script>
+        // Iegūst sesijas ID no URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const sesija = urlParams.get('sesija');
+        
+        // Parāda sesijas ID
+        if (sesija) {
+            document.getElementById('info').innerHTML = `
+                <strong>Sesijas ID:</strong><br>
+                ${sesija}<br><br>
+                <strong>Datora lapa:</strong><br>
+                ${document.referrer || 'Nezināma'}
+            `;
+        } else {
+            document.getElementById('info').innerHTML = '⚠️ Kļūda: nav sesijas ID! QR kodam jābūt ar parametru ?sesija=...';
+        }
+        
+        // FUNKCIJA: Apstiprināt skenēšanu
+        function apstiprinat() {
+            if (!sesija) {
+                alert('Kļūda: nav sesijas ID!');
+                return;
+            }
+            
+            // Saglabā localStorage, ka šī sesija ir skenēta
+            const atslega = 'skeneets_' + sesija;
+            localStorage.setItem(atslega, 'true');
+            
+            // Pārbauda, vai saglabājās
+            console.log('Saglabāts:', localStorage.getItem(atslega));
+            
+            // Parāda apstiprinājuma sekciju
+            document.getElementById('skenesanaSekcija').style.display = 'none';
+            document.getElementById('apstiprinatsSekcija').style.display = 'block';
+            
+            // Pēc 3 sekundēm mēģina aizvērt lapu
+            setTimeout(function() {
+                window.close();
+            }, 3000);
+        }
+        
+        // Ja nav sesijas, parāda kļūdu
+        if (!sesija) {
+            document.getElementById('skenesanaSekcija').innerHTML = `
+                <div style="color: red; padding: 20px;">
+                    <h2>❌ KĻŪDA</h2>
+                    <p>Nav sesijas ID!</p>
+                    <p>QR kodā jābūt: https://hitmakriga.github.io/hakatons/tel?sesija=... </p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
