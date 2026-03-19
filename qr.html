@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Koda Pārbaude - Hakotons</title>
+    <title>QR Kods - Hakotons</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
+            margin: 0;
             padding: 20px;
             text-align: center;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -23,17 +22,17 @@
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
         }
         
         h1 {
             color: #333;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         
         #qrSekcija {
-            transition: all 0.5s ease;
+            transition: opacity 0.5s ease;
         }
         
         .qr-container {
@@ -44,25 +43,23 @@
             border: 3px dashed #667eea;
         }
         
-        #qrKods {
-            max-width: 300px;
-            width: 100%;
-            height: auto;
-            margin: 0 auto;
-            display: block;
+        .qr-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
         }
         
         #zina {
             background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            padding: 40px;
+            padding: 50px;
             border-radius: 15px;
             color: white;
-            font-size: 32px;
+            font-size: 36px;
             font-weight: bold;
             margin: 20px 0;
             display: none;
             animation: paradi 0.5s ease;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
         
         @keyframes paradi {
@@ -76,23 +73,21 @@
             }
         }
         
-        .info {
+        .instrukcija {
             background-color: #e3f2fd;
             padding: 15px;
             border-radius: 10px;
             margin: 20px 0;
-            font-size: 16px;
             color: #1976d2;
-            word-break: break-all;
         }
         
-        .koda-teksts {
+        .kods-info {
             background-color: #f0f0f0;
-            padding: 10px;
+            padding: 15px;
             border-radius: 5px;
             font-family: monospace;
             font-size: 18px;
-            margin: 10px 0;
+            margin: 15px 0;
             word-break: break-all;
         }
         
@@ -100,11 +95,11 @@
             background-color: #667eea;
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 15px 40px;
             border-radius: 25px;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
-            margin: 5px;
+            margin: 10px;
             transition: all 0.3s;
         }
         
@@ -113,97 +108,92 @@
             transform: scale(1.05);
         }
         
-        .qr-link {
-            background-color: #ffd700;
-            color: #333;
+        .speakers-note {
+            background-color: #fff3cd;
+            color: #856404;
             padding: 15px;
             border-radius: 10px;
-            margin: 20px 0;
-            font-weight: bold;
+            margin-top: 20px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🏆 Hakotona QR Pārbaude 🏆</h1>
+        <h1>🏆 Hakotona Uzdevums 🏆</h1>
         
-        <div class="info">
-            <strong>Tavs QR koda saturs:</strong><br>
-            <span style="font-size: 14px;">hitmakriga.github.io/hakatons/qr?kods=SLEPENAIS_KODS_123</span>
+        <div class="instrukcija">
+            <strong>Lai pabeigtu uzdevumu:</strong> Noskenē šo QR kodu ar telefonu
         </div>
         
-        <!-- Šeit ir QR kods un teksts -->
+        <!-- QR koda sekcija - SĀKOTNĒJAIS STĀVOKLIS -->
         <div id="qrSekcija">
             <div class="qr-container">
-                <!-- QR koda attēls ar tavu specifisko saiti -->
-                <img id="qrKods" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://hitmakriga.github.io/hakatons/qr?kods=SLEPENAIS_KODS_123" alt="QR Kods">
-                <p style="margin-top: 10px; color: #666;">Skenē mani!</p>
+                <div class="qr-box">
+                    <!-- Šeit ir QR kods - tas ir tas, ko skenē ar telefonu -->
+                    <img id="qrKods" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=HAKOTONS_IR_FORŠS" alt="QR Kods" style="max-width: 300px; width: 100%; height: auto;">
+                </div>
+                <p style="margin-top: 20px; font-size: 18px; color: #333;">Skenē mani!</p>
             </div>
             
-            <div class="koda-teksts">
-                <strong>Pilna saite:</strong><br>
-                hitmakriga.github.io/hakatons/qr?kods=SLEPENAIS_KODS_123
+            <div class="kods-info">
+                <strong>QR koda saturs (tas, ko telefons nolasa):</strong><br>
+                <span style="font-size: 24px; color: #667eea;">HAKOTONS_IR_FORŠS</span>
             </div>
+            
+            <p style="color: #666;">Kad telefons noskenēs šo kodu, tas IZLASĪS tekstu "HAKOTONS_IR_FORŠS"</p>
         </div>
         
-        <!-- Šī ir ziņa, kas parādās pēc noskenēšanas -->
+        <!-- Ziņa, kas parādās PĒC noskenēšanas - SĀKUMĀ SLĒPTS -->
         <div id="zina">
-            🎉 APSVEICU! 🎉<br>
-            Tu noskenēji pareizo QR kodu!<br>
-            <span style="font-size: 20px; display: block; margin-top: 20px;">✨ Lai veicas hakatonā! ✨</span>
+            🎉 MALACIS! 🎉<br>
+            <span style="font-size: 24px; display: block; margin-top: 20px;">Tu izpildīji uzdevumu!</span>
+            <span style="font-size: 18px; display: block; margin-top: 10px;">✨ Hakotons var sākties! ✨</span>
         </div>
         
-        <div class="qr-link">
-            <strong>Lai pārbaudītu:</strong><br>
-            <a href="?kods=SLEPENAIS_KODS_123" style="color: #333;">Klikšķini šeit</a> lai imitētu noskenēšanu
+        <!-- Pogas testēšanai -->
+        <div style="margin-top: 30px;">
+            <button onclick="imitetNoskenesanu()">📱 Imitēt noskenēšanu</button>
+            <button onclick="atstatQR()">🔄 Atstat QR kodu</button>
         </div>
         
-        <button onclick="atstatQR()">🔄 Atstat sākotnējo</button>
-        
-        <p style="margin-top: 20px; color: #999; font-size: 12px;">
-            * Kad skenēsiet QR kodu ar telefonu, tas atvērs šo lapu un QR kods pazudīs
-        </p>
+        <div class="speakers-note">
+            <strong>⚠️ Kā tas darbojas:</strong><br>
+            • QR kodā ir ierakstīts teksts "HAKOTONS_IR_FORŠS"<br>
+            • Kad telefons skenē šo kodu, tas nolasa šo tekstu<br>
+            • Šī lapa NEKAS NEZINA par to, ka telefons kaut ko skenēja<br>
+            • Tāpēc testēšanai lieto pogu "Imitēt noskenēšanu"<br>
+            • Īstā situācijā, kad kāds noskenēs kodu, tev pašam jāpiespiež poga vai jāizmanto WebSockets
+        </div>
     </div>
 
     <script>
-        // Šis ir mūsu "slepenais" kods, kas ir QR kodā
-        const PAREIZAIS_KODS = "SLEPENAIS_KODS_123";
+        // Šis ir teksts, kas ir QR kodā
+        const QR_KODA_TEKSTS = "HAKOTONS_IR_FORŠS";
         
-        // Funkcija, kas pārbauda vai ievadītais kods ir pareizs
-        function parbauditKodu(ievaditaisKods = PAREIZAIS_KODS) {
-            if (ievaditaisKods === PAREIZAIS_KODS) {
-                // Paslēpt QR kodu
-                document.getElementById('qrSekcija').style.display = 'none';
-                // Parādīt ziņu
-                document.getElementById('zina').style.display = 'block';
-                
-                // Pievienot URL parametru, lai lapa "atcerētos" ka QR jau noskenēts
-                history.pushState({}, '', '?noskenets=true');
-            }
+        // Funkcija, kas imitē QR koda noskenēšanu
+        function imitetNoskenesanu() {
+            // Paslēpt QR sekciju
+            document.getElementById('qrSekcija').style.display = 'none';
+            // Parādīt ziņu
+            document.getElementById('zina').style.display = 'block';
+            
+            // Saglabāt localStorage, ka kods jau noskenēts
+            localStorage.setItem('qrsNoskeneets', 'true');
         }
         
-        // Funkcija, lai atstatītu sākotnējo stāvokli
+        // Funkcija, lai atstatītu QR kodu
         function atstatQR() {
             document.getElementById('qrSekcija').style.display = 'block';
             document.getElementById('zina').style.display = 'none';
             
-            // Noņemt URL parametru
-            history.pushState({}, '', window.location.pathname);
+            // Izdzēst no localStorage
+            localStorage.removeItem('qrsNoskeneets');
         }
         
-        // Pārbaudīt vai lapa tika atvērta ar parametru
+        // Pārbaudīt vai kods jau bija noskenēts (ja pārlādē lapu)
         window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const kods = urlParams.get('kods');
-            const noskenets = urlParams.get('noskenets');
-            
-            // Ja lapa atvērta ar parametru "kods", pārbaudi to
-            if (kods) {
-                parbauditKodu(kods);
-            }
-            
-            // Ja lapa atvērta ar parametru "noskenets", parādi ziņu
-            if (noskenets === 'true') {
+            if (localStorage.getItem('qrsNoskeneets') === 'true') {
                 document.getElementById('qrSekcija').style.display = 'none';
                 document.getElementById('zina').style.display = 'block';
             }
