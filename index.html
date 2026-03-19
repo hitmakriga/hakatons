@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grāmatu Skapji</title>
+    <title>Grāmatu Skapji | Zaļā grāmatu apmaiņa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -179,6 +179,7 @@
             font-size: 2.5rem;
             display: inline-block;
             padding-bottom: 10px;
+            position: relative;
         }
         
         .section-title h2::after {
@@ -310,6 +311,10 @@
             color: var(--white);
         }
         
+        .contact-section .section-title h2 {
+            color: var(--white);
+        }
+        
         .contact-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -320,6 +325,10 @@
             font-size: 1.8rem;
             margin-bottom: 1.5rem;
             color: var(--accent-color);
+        }
+        
+        .contact-info p {
+            margin-bottom: 2rem;
         }
         
         .contact-details {
@@ -336,6 +345,7 @@
             font-size: 1.5rem;
             margin-right: 1rem;
             color: var(--accent-color);
+            width: 40px;
         }
         
         .contact-form input,
@@ -347,6 +357,12 @@
             border-radius: 5px;
             background-color: rgba(255, 255, 255, 0.9);
             font-size: 1rem;
+        }
+        
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: 2px solid var(--accent-color);
+            background-color: var(--white);
         }
         
         .contact-form textarea {
@@ -368,6 +384,14 @@
             align-items: center;
         }
         
+        .footer-content .logo {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-content p {
+            margin-bottom: 1.5rem;
+        }
+        
         .social-links {
             margin: 1.5rem 0;
         }
@@ -377,11 +401,12 @@
             color: var(--white);
             font-size: 1.5rem;
             margin: 0 10px;
-            transition: color 0.3s;
+            transition: color 0.3s, transform 0.3s;
         }
         
         .social-links a:hover {
             color: var(--accent-color);
+            transform: translateY(-3px);
         }
         
         .copyright {
@@ -420,16 +445,18 @@
                 flex-direction: column;
                 align-items: center;
                 padding: 2rem 0;
-                transform: translateY(-100%);
+                transform: translateY(-150%);
                 opacity: 0;
-                transition: all 0.3s;
+                transition: transform 0.3s ease, opacity 0.3s ease;
                 box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
                 z-index: 999;
+                pointer-events: none;
             }
             
             nav ul.active {
                 transform: translateY(0);
                 opacity: 1;
+                pointer-events: all;
             }
             
             nav ul li {
@@ -473,7 +500,7 @@
                 <h1>Grāmatu <span>Skapji</span></h1>
             </div>
             
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Izvēlne">
                 <i class="fas fa-bars"></i>
             </button>
             
@@ -481,7 +508,7 @@
                 <ul id="navMenu">
                     <li><a href="#home">Sākums</a></li>
                     <li><a href="#about">Par projektu</a></li>
-                    <li><a href="#features">Iezīmes</a></li>
+                    <li><a href="#features">Sasniegumi</a></li>
                     <li><a href="#gallery">Galerija</a></li>
                     <li><a href="#contact">Kontakti</a></li>
                 </ul>
@@ -494,7 +521,7 @@
         <div class="container">
             <h2>Zaļie grāmatu skapji</h2>
             <p>Zaļie grāmatu skapji ir vieta, kur grāmatas iegūst otru elpu. Atved savu izlasīto grāmatu, saņem punktus un izmanto tos, lai iegādātos jaunu lasāmvielu. Dod otrreizēju iespēju stāstiem un atklāj jaunus – ilgtspējīgi, izdevīgi un ar mīlestību pret literatūru.</p>
-            <a href="https://hitmakriga.github.io/hakatons/veikals" class="btn">Punktu veikals</a>
+            <a href="https://hitmakriga.github.io/hakatons/veikals" class="btn" target="_blank" rel="noopener">Punktu veikals</a>
         </div>
     </section>
 
@@ -507,8 +534,8 @@
             
             <div class="about-content">
                 <div class="about-text">
-                    <p>Grāmatu Skapji ir grāmatu apmaiņas platforma, kas ļauj nodot vecās grāmatas, saņemt punktus un izmantot tos jaunu grāmatu iegādei. Sistēma darbojas automātizēti 24/7, nodrošinot ērtu, drošu un ilgtspējīgu risinājumu lasītājiem. Mērķis ir veicināt grāmatu atkārtotu izmantošanu, samazināt resursu patēriņu un padarīt lasīšanu pieejamu plašākai sabiedrībai.</p>
-                    <p>Katrs grāmatu skapis ir izgatavots no pārstrādātiem materiāliem. Tādējādi samazinot CO₂ izmešus. Jo kopā mēs varam!</p>
+                    <p>Grāmatu Skapji ir grāmatu apmaiņas platforma, kas ļauj nodot vecās grāmatas, saņemt punktus un izmantot tos jaunu grāmatu iegādei. Sistēma darbojas automatizēti 24/7, nodrošinot ērtu, drošu un ilgtspējīgu risinājumu lasītājiem. Mērķis ir veicināt grāmatu atkārtotu izmantošanu, samazināt resursu patēriņu un padarīt lasīšanu pieejamu plašākai sabiedrībai.</p>
+                    <p>Katrs grāmatu skapis ir izgatavots no pārstrādātiem materiāliem, tādējādi samazinot CO₂ izmešus. Jo kopā mēs varam!</p>
                     <a href="#gallery" class="btn">Galerija</a>
                 </div>
                 <div class="about-image">
@@ -528,28 +555,27 @@
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-ruler-combined"></i>
+                        <i class="fas fa-tree"></i>
                     </div>
-                    <h3>Saglabājām 100 km² ar mežu</h3>
-                    <p>Mūsu projekta ietvaros tika saglabāti vairāk nekā 100km² dzīvā meža</p>
+                    <h3>Saglabājām 100 km² meža</h3>
+                    <p>Mūsu projekta ietvaros tika saglabāti vairāk nekā 100 km² dzīvā meža</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-leaf"></i>
+                        <i class="fas fa-book"></i>
                     </div>
-                    <h3>Vairāk nekā 4000 grāmatu ieguva otro dzīvi</h3>
+                    <h3>Vairāk nekā 4000 grāmatu</h3>
                     <p>Projekta ietvaros vairāk nekā 4000 grāmatu ieguva otro dzīvi</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-tools"></i>
+                        <i class="fas fa-archive"></i>
                     </div>
                     <h3>Vairāk nekā 600 skapji</h3>
                     <p>Vairāk nekā 600 skapji tika izvietoti visā Latvijā</p>
                 </div>
-                
             </div>
         </div>
     </section>
@@ -596,7 +622,7 @@
             <div class="contact-container">
                 <div class="contact-info">
                     <h3>Kļūstiet par partneri!</h3>
-                    <p>Palīdzat mums padarīt šo pasauli zaļāku! Kopā mēs varam!</p>
+                    <p>Palīdziet mums padarīt šo pasauli zaļāku! Kopā mēs varam!</p>
                     
                     <div class="contact-details">
                         <div class="contact-detail">
@@ -650,14 +676,14 @@
                 <p>Jo kopā mēs varam!</p>
                 
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
                 
                 <div class="copyright">
-                    <p>&copy; 2025 RTU hakatons. Šo vispār kāds lasa?</p>
+                    <p>&copy; 2025 RTU hakatons. Visas tiesības aizsargātas.</p>
                 </div>
             </div>
         </div>
@@ -668,43 +694,96 @@
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navMenu = document.getElementById('navMenu');
         
-        mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
-        });
-        
-        // Aizvērt mobīlo izvēlni, noklikšķinot uz saites
-        const navLinks = document.querySelectorAll('nav ul li a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        if (mobileMenuBtn && navMenu) {
+            mobileMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navMenu.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    icon.className = navMenu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+                }
             });
-        });
+            
+            // Aizvērt mobīlo izvēlni, noklikšķinot uz saites
+            const navLinks = document.querySelectorAll('nav ul li a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    if (icon) {
+                        icon.className = 'fas fa-bars';
+                    }
+                });
+            });
+            
+            // Aizvērt izvēlni, noklikšķinot ārpus tās
+            document.addEventListener('click', (e) => {
+                if (navMenu.classList.contains('active') && 
+                    !navMenu.contains(e.target) && 
+                    !mobileMenuBtn.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    if (icon) {
+                        icon.className = 'fas fa-bars';
+                    }
+                }
+            });
+        }
         
         // Formas iesniegšanas simulācija
         const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Paldies par jūsu ziņu! Mēs ar jums sazināsimies drīzākajā laikā.');
-            contactForm.reset();
-        });
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Paldies par jūsu ziņu! Mēs ar jums sazināsimies drīzākajā laikā.');
+                contactForm.reset();
+            });
+        }
         
         // Gluda ritināšana uz sadaļām
         document.querySelectorAll('nav ul li a, .hero .btn').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+                const href = this.getAttribute('href');
                 
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
+                // Pārbauda vai tā ir iekšējā saite (sākas ar #)
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    
+                    const targetId = href;
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = 70;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+                // Ārējām saitēm (piemēram, Punktu veikals) ļauj darboties normāli
+            });
+        });
+        
+        // Aktīvās izvēlnes vienuma iezīmēšana ritinot
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPosition = window.scrollY + 100;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const sectionId = section.getAttribute('id');
                 
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 70,
-                        behavior: 'smooth'
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('nav ul li a').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + sectionId) {
+                            link.classList.add('active');
+                        }
                     });
                 }
             });
