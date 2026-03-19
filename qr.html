@@ -17,7 +17,6 @@
             justify-content: center;
             color: white;
         }
-        
         .container {
             background-color: #2d2d44;
             border-radius: 20px;
@@ -26,16 +25,8 @@
             max-width: 600px;
             width: 100%;
         }
-        
-        h1 {
-            color: #fff;
-            margin-bottom: 30px;
-        }
-        
-        #qrSekcija {
-            transition: opacity 0.5s ease;
-        }
-        
+        h1 { color: #fff; margin-bottom: 30px; }
+        #qrSekcija { transition: opacity 0.5s ease; }
         .qr-container {
             background-color: white;
             padding: 30px;
@@ -44,13 +35,7 @@
             display: inline-block;
             box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
         }
-        
-        #qrKods {
-            max-width: 300px;
-            width: 100%;
-            height: auto;
-        }
-        
+        #qrKods { max-width: 300px; width: 100%; height: auto; }
         #zina {
             background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
             padding: 50px;
@@ -61,20 +46,11 @@
             margin: 20px 0;
             display: none;
             animation: paradi 0.5s ease;
-            box-shadow: 0 0 30px rgba(67, 233, 123, 0.5);
         }
-        
         @keyframes paradi {
-            from { 
-                opacity: 0; 
-                transform: scale(0.8); 
-            }
-            to { 
-                opacity: 1; 
-                transform: scale(1); 
-            }
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
-        
         .status {
             background-color: #1e1e2f;
             padding: 15px;
@@ -83,7 +59,6 @@
             font-size: 18px;
             border-left: 4px solid #667eea;
         }
-        
         .id-info {
             background-color: #3d3d5c;
             padding: 10px;
@@ -93,7 +68,6 @@
             margin: 10px 0;
             word-break: break-all;
         }
-        
         .palidziba {
             color: #999;
             font-size: 14px;
@@ -102,7 +76,6 @@
             background-color: #1e1e2f;
             border-radius: 5px;
         }
-        
         .loader {
             border: 3px solid #f3f3f3;
             border-top: 3px solid #667eea;
@@ -113,10 +86,15 @@
             display: inline-block;
             margin-right: 10px;
         }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        button {
+            background-color: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
         }
     </style>
 </head>
@@ -124,7 +102,6 @@
     <div class="container">
         <h1>💻 Datora QR Autorizācija</h1>
         
-        <!-- QR koda sekcija - redzama sākumā -->
         <div id="qrSekcija">
             <div class="status" id="status">
                 <span class="loader"></span>
@@ -139,94 +116,56 @@
                 Sesijas ID: ...
             </div>
             
-            <p style="color: #aaa;">1. Atver kameru telefonā<br>2. Noskenē šo QR kodu<br>3. Dators saņems apstiprinājumu</p>
+            <p style="color: #aaa;">1. Atver kameru telefonā<br>2. Noskenē šo QR kodu<br>3. Pagaidi, kamēr dators atjaunojas</p>
         </div>
         
-        <!-- Ziņa - parādās pēc noskenēšanas -->
         <div id="zina">
             ✅ AUTORIZĀCIJA IZDEVĀS!<br>
             <span style="font-size: 20px; display: block; margin-top: 20px;">Telefons veiksmīgi noskenēja QR kodu</span>
         </div>
         
         <div class="palidziba" id="testaDala">
-            <strong>🔧 Testēšanas režīms:</strong><br>
-            <p style="margin: 5px 0;">Ja nav telefona, vari imitēt skenēšanu:</p>
-            <button onclick="imitetSkenesanu()" style="background-color: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 5px;">📱 Imitēt skenēšanu</button>
-            <button onclick="atiestatit()" style="background-color: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 5px;">🔄 Atiestatīt</button>
-            <p style="font-size: 12px; margin-top: 10px;">* Īstā situācijā, skenējot ar telefonu, dators pats atjaunojas</p>
+            <strong>🔧 Testēšanai:</strong><br>
+            <button onclick="window.location.href = window.location.pathname + '?apstiprinats=' + sesijasId">📱 Imitēt apstiprinājumu</button>
+            <button onclick="window.location.reload()">🔄 Pārlādēt</button>
         </div>
     </div>
 
     <script>
-        // Ģenerē unikālu sesijas ID
-        const sesijasId = 'dators_' + Math.random().toString(36).substring(2, 15) + '_' + Date.now();
+        // Pārbaudām vai URL ir apstiprinājuma parametrs
+        const urlParams = new URLSearchParams(window.location.search);
+        const apstiprinats = urlParams.get('apstiprinats');
         
-        // Šī ir PILNĪGA saite, ko atvērs telefons pēc skenēšanas
-        // Svarīgi! Šai jābūt pilnai URL adresei ar tavu domēnu
-        const TELEFONA_LAPA = 'https://hitmakriga.github.io/hakatons/tel';
-        
-        // QR koda saturs - tajā ir saite uz telefona lapu ar sesijas ID
-        const qrSaturs = TELEFONA_LAPA + '?sesija=' + sesijasId;
-        
-        // Parāda sesijas ID lapā (informācijai)
-        document.getElementById('sesijasId').innerHTML = '<strong>Sesijas ID:</strong> ' + sesijasId;
-        
-        // Ģenerē QR kodu ar pilno saiti
-        document.getElementById('qrKods').src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(qrSaturs);
-        
-        // FUNKCIJA: Imitē skenēšanu (testēšanai)
-        function imitetSkenesanu() {
-            // Paslēpj QR kodu, parāda ziņu
+        if (apstiprinats) {
+            // Ja ir apstiprinājums - paslēp QR un parādi ziņu
             document.getElementById('qrSekcija').style.display = 'none';
             document.getElementById('zina').style.display = 'block';
             document.getElementById('testaDala').style.display = 'none';
-        }
-        
-        // FUNKCIJA: Atiestatīt (testēšanai)
-        function atiestatit() {
-            document.getElementById('qrSekcija').style.display = 'block';
-            document.getElementById('zina').style.display = 'none';
-            document.getElementById('testaDala').style.display = 'block';
-        }
-        
-        // ------------------------------------------------------
-        // Šeit sākas ĪSTĀ loģika savienojumam ar telefonu
-        // ------------------------------------------------------
-        
-        // Mēs izmantojam localStorage, lai "sazinātos" starp lapām
-        // (Tas darbojas, ja abas lapas ir vienā domēnā)
-        
-        // Pārbaudām, vai telefons jau ir noskenējis
-        function parbauditVaiTelefonsSkenēja() {
-            const atslega = 'skeneets_' + sesijasId;
-            const skeneets = localStorage.getItem(atslega);
+        } else {
+            // Ja nav - ģenerē jaunu QR kodu
+            const sesijasId = 'sesija_' + Math.random().toString(36).substring(2, 15);
+            document.getElementById('sesijasId').innerHTML = '<strong>Sesijas ID:</strong> ' + sesijasId;
             
-            if (skeneets === 'true') {
-                // Telefons ir noskenējis! Mainām datora lapu
+            // TE MILZĪGI SVARĪGI - šeit veidojam SAITI UZ TELEFONA LAPU
+            const telefonaLapa = 'https://hitmakriga.github.io/hakatons/tel';
+            const qrSaturs = telefonaLapa + '?sesija=' + sesijasId;
+            
+            // Ģenerējam QR kodu
+            document.getElementById('qrKods').src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(qrSaturs);
+        }
+        
+        // Šī funkcija pārbauda vai ir jauni parametri (katru sekundi)
+        function parbauditParametrus() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('apstiprinats')) {
                 document.getElementById('qrSekcija').style.display = 'none';
                 document.getElementById('zina').style.display = 'block';
                 document.getElementById('testaDala').style.display = 'none';
-                
-                // Iztīrām, lai neatkārtojas
-                localStorage.removeItem(atslega);
-                
-                console.log('✅ Telefons noskenēja QR kodu!');
-                return true;
             }
-            return false;
         }
         
-        // Pārbaudām uzreiz, ja nu jau ir noskenēts
-        parbauditVaiTelefonsSkenēja();
-        
-        // Turpinām pārbaudīt katru sekundi
-        setInterval(parbauditVaiTelefonsSkenēja, 1000);
-        
-        // Ja lapa tiek aizvērta, notīram
-        window.addEventListener('beforeunload', function() {
-            const atslega = 'skeneets_' + sesijasId;
-            localStorage.removeItem(atslega);
-        });
+        // Pārbaudām ik pēc sekundes
+        setInterval(parbauditParametrus, 1000);
     </script>
 </body>
 </html>
