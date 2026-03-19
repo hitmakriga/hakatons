@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Koda Pārbaude - Hakotons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        #qrSekcija {
+            transition: all 0.5s ease;
+        }
+        
+        .qr-container {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 3px dashed #667eea;
+        }
+        
+        #qrKods {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        #zina {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            padding: 40px;
+            border-radius: 15px;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 20px 0;
+            display: none;
+            animation: paradi 0.5s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes paradi {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .info {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 16px;
+            color: #1976d2;
+            word-break: break-all;
+        }
+        
+        .koda-teksts {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 18px;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        
+        button {
+            background-color: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background-color: #764ba2;
+            transform: scale(1.05);
+        }
+        
+        .qr-link {
+            background-color: #ffd700;
+            color: #333;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏆 Hakotona QR Pārbaude 🏆</h1>
+        
+        <div class="info">
+            <strong>Tavs QR koda saturs:</strong><br>
+            <span style="font-size: 14px;">hitmakriga.github.io/hakatons/qr?kods=SLEPENAIS_KODS_123</span>
+        </div>
+        
+        <!-- Šeit ir QR kods un teksts -->
+        <div id="qrSekcija">
+            <div class="qr-container">
+                <!-- QR koda attēls ar tavu specifisko saiti -->
+                <img id="qrKods" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://hitmakriga.github.io/hakatons/qr?kods=SLEPENAIS_KODS_123" alt="QR Kods">
+                <p style="margin-top: 10px; color: #666;">Skenē mani!</p>
+            </div>
+            
+            <div class="koda-teksts">
+                <strong>Pilna saite:</strong><br>
+                hitmakriga.github.io/hakatons/qr?kods=SLEPENAIS_KODS_123
+            </div>
+        </div>
+        
+        <!-- Šī ir ziņa, kas parādās pēc noskenēšanas -->
+        <div id="zina">
+            🎉 APSVEICU! 🎉<br>
+            Tu noskenēji pareizo QR kodu!<br>
+            <span style="font-size: 20px; display: block; margin-top: 20px;">✨ Lai veicas hakatonā! ✨</span>
+        </div>
+        
+        <div class="qr-link">
+            <strong>Lai pārbaudītu:</strong><br>
+            <a href="?kods=SLEPENAIS_KODS_123" style="color: #333;">Klikšķini šeit</a> lai imitētu noskenēšanu
+        </div>
+        
+        <button onclick="atstatQR()">🔄 Atstat sākotnējo</button>
+        
+        <p style="margin-top: 20px; color: #999; font-size: 12px;">
+            * Kad skenēsiet QR kodu ar telefonu, tas atvērs šo lapu un QR kods pazudīs
+        </p>
+    </div>
+
+    <script>
+        // Šis ir mūsu "slepenais" kods, kas ir QR kodā
+        const PAREIZAIS_KODS = "SLEPENAIS_KODS_123";
+        
+        // Funkcija, kas pārbauda vai ievadītais kods ir pareizs
+        function parbauditKodu(ievaditaisKods = PAREIZAIS_KODS) {
+            if (ievaditaisKods === PAREIZAIS_KODS) {
+                // Paslēpt QR kodu
+                document.getElementById('qrSekcija').style.display = 'none';
+                // Parādīt ziņu
+                document.getElementById('zina').style.display = 'block';
+                
+                // Pievienot URL parametru, lai lapa "atcerētos" ka QR jau noskenēts
+                history.pushState({}, '', '?noskenets=true');
+            }
+        }
+        
+        // Funkcija, lai atstatītu sākotnējo stāvokli
+        function atstatQR() {
+            document.getElementById('qrSekcija').style.display = 'block';
+            document.getElementById('zina').style.display = 'none';
+            
+            // Noņemt URL parametru
+            history.pushState({}, '', window.location.pathname);
+        }
+        
+        // Pārbaudīt vai lapa tika atvērta ar parametru
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const kods = urlParams.get('kods');
+            const noskenets = urlParams.get('noskenets');
+            
+            // Ja lapa atvērta ar parametru "kods", pārbaudi to
+            if (kods) {
+                parbauditKodu(kods);
+            }
+            
+            // Ja lapa atvērta ar parametru "noskenets", parādi ziņu
+            if (noskenets === 'true') {
+                document.getElementById('qrSekcija').style.display = 'none';
+                document.getElementById('zina').style.display = 'block';
+            }
+        };
+    </script>
+</body>
+</html>
