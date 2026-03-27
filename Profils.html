@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mans Kabinets | Grāmatu Skapji</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #F4A460;
+            --light-color: #FAEBD7;
+            --dark-color: #5D2906;
+            --text-color: #333;
+            --white: #fff;
+            --gray-bg: #f9f9f9;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #f5f0e8 0%, #e8e0d5 100%);
+            min-height: 100vh;
+        }
+        
+        /* Header - tikai kompānijas nosaukums un grāmatas simbols */
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1.2rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            font-size: 2.4rem;
+            color: var(--accent-color);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        /* Datora versijas galvenais izkārtojums - cits, modernāks */
+        .cabinet-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        /* Jauns izkārtojums - horizontāli divi galvenie bloki */
+        .cabinet-dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2rem;
+            background: transparent;
+        }
+        
+        /* Kreisā kolonna - profila informācija */
+        .profile-column {
+            background: var(--white);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .profile-column:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Profila galvene ar gradientu */
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .avatar-placeholder {
+            background: var(--accent-color);
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.2rem auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
+            border: 4px solid rgba(255, 255, 255, 0.9);
+        }
+        
+        .avatar-placeholder i {
+            font-size: 4rem;
+            color: var(--dark-color);
+        }
+        
+        .fullname {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.3px;
+        }
+        
+        .user-id {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 245, 0.2);
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1.3rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--light-color);
+            font-family: monospace;
+            letter-spacing: 0.5px;
+        }
+        
+        .user-id i {
+            font-size: 0.9rem;
+        }
+        
+        /* Punktu sadaļa - lielāka un izteiksmīgāka */
+        .points-section {
+            background: var(--light-color);
+            padding: 1.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 1px solid #e0d3c0;
+        }
+        
+        .points-label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            font-size: 1.2rem;
+        }
+        
+        .points-label i {
+            font-size: 2rem;
+            color: var(--secondary-color);
+        }
+        
+        .points-value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            letter-spacing: -1px;
+            background: linear-gradient(125deg, var(--primary-color), var(--secondary-color));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: var(--primary-color);
+        }
+        
+        .points-badge {
+            background: var(--white);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .points-badge i {
+            font-size: 1rem;
+            color: #f4b942;
+        }
+        
+        /* Papildus info statistikas bloks */
+        .stats-info {
+            padding: 1.5rem 2rem;
+            background: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 1px solid #f0e8dd;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--dark-color);
+        }
+        
+        .stat-item i {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            width: 32px;
+        }
+        
+        .stat-item span {
+            font-weight: 500;
+        }
+        
+        .stat-value {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-left: 4px;
+        }
+        
+        .last-login {
+            padding: 1rem 2rem 1.5rem 2rem;
+            text-align: center;
+            color: #8B7355;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--light-color);
+            background: var(--white);
+        }
+        
+        /* Labā kolonna - darbību pogas jaunā izkārtojumā */
+        .actions-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .action-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 1.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            text-decoration: none;
+            border: 1px solid rgba(139, 69, 19, 0.1);
+        }
+        
+        .action-card:hover {
+            transform: translateX(12px);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.12);
+            border-color: var(--accent-color);
+        }
+        
+        .action-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .action-icon {
+            width: 65px;
+            height: 65px;
+            background: var(--light-color);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .action-icon i {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+        }
+        
+        .action-text h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 0.3rem;
+        }
+        
+        .action-text p {
+            font-size: 0.9rem;
+            color: #8B7355;
+        }
+        
+        .action-arrow {
+            background: var(--light-color);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .action-arrow i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        .action-card:hover .action-icon {
+            background: var(--accent-color);
+            transform: scale(1.05);
+        }
+        
+        .action-card:hover .action-icon i {
+            color: var(--white);
+        }
+        
+        .action-card:hover .action-arrow {
+            background: var(--secondary-color);
+            transform: translateX(5px);
+        }
+        
+        .action-card:hover .action-arrow i {
+            color: var(--white);
+        }
+        
+        /* Katalogam specifiska krāsa hover */
+        .card-catalog:hover .action-icon {
+            background: #3b82f6;
+        }
+        .card-catalog:hover .action-icon i {
+            color: white;
+        }
+        
+        .card-map:hover .action-icon {
+            background: #10b981;
+        }
+        .card-map:hover .action-icon i {
+            color: white;
+        }
+        
+        .card-store:hover .action-icon {
+            background: #f59e0b;
+        }
+        .card-store:hover .action-icon i {
+            color: white;
+        }
+        
+        /* Footer - vienkāršs un tīrs */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-content .logo {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-content p {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .social-links {
+            margin: 1rem 0;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            color: var(--white);
+            font-size: 1.3rem;
+            margin: 0 12px;
+            transition: color 0.3s, transform 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            font-size: 0.8rem;
+        }
+        
+        /* Responsīvais dizains datora versijai ar citu izkārtojumu */
+        @media (max-width: 1024px) {
+            .cabinet-dashboard {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+            
+            .cabinet-wrapper {
+                padding: 2rem 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                justify-content: center;
+            }
+            
+            .action-card {
+                padding: 1.3rem 1.5rem;
+            }
+            
+            .action-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .action-icon i {
+                font-size: 1.6rem;
+            }
+            
+            .action-text h3 {
+                font-size: 1.2rem;
+            }
+            
+            .points-value {
+                font-size: 2rem;
+            }
+            
+            .fullname {
+                font-size: 1.5rem;
+            }
+            
+            .avatar-placeholder {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .avatar-placeholder i {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            .cabinet-wrapper {
+                max-width: 1500px;
+                padding: 4rem 2rem;
+            }
+            
+            .profile-header {
+                padding: 3rem;
+            }
+            
+            .avatar-placeholder {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .avatar-placeholder i {
+                font-size: 4.5rem;
+            }
+            
+            .fullname {
+                font-size: 2.2rem;
+            }
+            
+            .points-value {
+                font-size: 3.2rem;
+            }
+        }
+        
+        /* Animācijas elements */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .profile-column, .action-card {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        
+        .action-card:nth-child(1) { animation-delay: 0.1s; }
+        .action-card:nth-child(2) { animation-delay: 0.2s; }
+        .action-card:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <!-- Header - tikai kompānijas nosaukums un grāmatas simbols, bez navigācijas pogām -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-book-open logo-icon"></i>
+                <h1>Grāmatu <span>Skapji</span></h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Galvenais saturs - jauns izkārtojums datora versijai -->
+    <div class="cabinet-wrapper">
+        <div class="cabinet-dashboard">
+            <!-- Kreisā kolonna: profila informācija, punkti, statuss -->
+            <div class="profile-column">
+                <div class="profile-header">
+                    <div class="avatar-placeholder">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="fullname">Jānis Bērziņš</div>
+                    <div class="user-id">
+                        <i class="fas fa-id-card"></i> ID: LV-2403-2781
+                    </div>
+                </div>
+
+                <div class="points-section">
+                    <div class="points-label">
+                        <i class="fas fa-coins"></i>
+                        <span>Punktu skaits</span>
+                    </div>
+                    <div class="points-value">1 284</div>
+                    <div class="points-badge">
+                        <i class="fas fa-leaf"></i> zaļais lasītājs
+                    </div>
+                </div>
+
+                <div class="stats-info">
+                    <div class="stat-item">
+                        <i class="fas fa-book"></i>
+                        <span>Nodotās grāmatas:</span>
+                        <span class="stat-value">23</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-gift"></i>
+                        <span>Iegādātās grāmatas:</span>
+                        <span class="stat-value">12</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-tree"></i>
+                        <span>Ietaupīts CO₂:</span>
+                        <span class="stat-value">48 kg</span>
+                    </div>
+                </div>
+
+                <div class="last-login">
+                    <i class="fas fa-clock"></i> Pēdējā pieslēgšanās: šodien, 14:32
+                </div>
+            </div>
+
+            <!-- Labā kolonna: 3 darbību pogas jaunā kartes stilā -->
+            <div class="actions-column">
+                <!-- 1. Grāmatu katalogs -->
+                <a href="/katalogs/gramatas" class="action-card card-catalog" id="catalogCard">
+                    <div class="action-content">
+                        <div class="action-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="action-text">
+                            <h3>Grāmatu katalogs</h3>
+                            <p>Apskati visu grāmatu klāstu un atrodi ko jaunu</p>
+                        </div>
+                    </div>
+                    <div class="action-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- 2. Skapju karte -->
+                <a href="/biblioteka/skapju-karte" class="action-card card-map" id="mapCard">
+                    <div class="action-content">
+                        <div class="action-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <div class="action-text">
+                            <h3>Skapju karte</h3>
+                            <p>Atrodi tuvāko grāmatu skapi savā apkaimē</p>
+                        </div>
+                    </div>
+                    <div class="action-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- 3. Punktu veikals -->
+                <a href="/veikals/punkti" class="action-card card-store" id="storeCard">
+                    <div class="action-content">
+                        <div class="action-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="action-text">
+                            <h3>Punktu veikals</h3>
+                            <p>Izmanto uzkrātos punktus grāmatu iegādei un īpašām atlaidēm</p>
+                        </div>
+                    </div>
+                    <div class="action-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer - vienkāršs un atbilstošs dizainam -->
+    <footer>
+        <div class="container" style="width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fas fa-book-open logo-icon"></i>
+                    <h1>Grāmatu <span>Skapji</span></h1>
+                </div>
+                <p>Jo kopā mēs varam!</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 Grāmatu Skapji. Visas tiesības aizsargātas.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Vienkārša interaktivitāte - konsoles izvade navigācijai
+        const actionCards = document.querySelectorAll('.action-card');
+        actionCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                const href = card.getAttribute('href');
+                console.log(`Navigācija uz: ${href}`);
+                // Saites darbojas normāli, jo <a> elements ar href
+            });
+        });
+        
+        // Papildus animācijas efekts - lai padarītu pieredzi patīkamāku
+        const profileColumn = document.querySelector('.profile-column');
+        if (profileColumn) {
+            profileColumn.style.opacity = '0';
+            profileColumn.style.animation = 'fadeInUp 0.5s ease-out forwards';
+        }
+        
+        // Pievienojam papildus klases hover efektam
+        const style = document.createElement('style');
+        style.textContent = `
+            .action-card {
+                cursor: pointer;
+            }
+            .card-catalog:hover .action-arrow {
+                background: #3b82f6;
+            }
+            .card-map:hover .action-arrow {
+                background: #10b981;
+            }
+            .card-store:hover .action-arrow {
+                background: #f59e0b;
+            }
+            .action-card:hover .action-arrow i {
+                color: white;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Pielāgošana, lai nodrošinātu, ka visi href ir aktīvi un ved uz citām lapām
+        // (šīs saites var aizstāt ar reāliem URL atbilstoši projekta struktūrai)
+        console.log('Privātais kabinets ielādēts - izkārtojums optimizēts datora versijai');
+    </script>
+</body>
+</html>
