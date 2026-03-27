@@ -374,8 +374,7 @@
         footer {
             background-color: var(--primary-color);
             color: var(--white);
-            padding: 3rem 0;
-            text-align: center;
+            padding: 3rem 0 1rem 0;
         }
         
         .footer-content {
@@ -414,6 +413,65 @@
             padding-top: 1.5rem;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             width: 100%;
+        }
+        
+        /* Trīs pogu stils */
+        .bottom-buttons {
+            background-color: var(--light-color);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .bottom-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .bottom-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-primary-bottom {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .btn-primary-bottom:hover {
+            background-color: #9b4f1a;
+        }
+        
+        .btn-secondary-bottom {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+        
+        .btn-secondary-bottom:hover {
+            background-color: #e07a2a;
+        }
+        
+        .btn-accent-bottom {
+            background-color: var(--accent-color);
+            color: var(--white);
+        }
+        
+        .btn-accent-bottom:hover {
+            background-color: #f5b16b;
         }
         
         /* Atbildīgais dizains */
@@ -474,6 +532,15 @@
             .section-title h2 {
                 font-size: 2rem;
             }
+            
+            .buttons-container {
+                gap: 1rem;
+            }
+            
+            .bottom-btn {
+                padding: 10px 24px;
+                font-size: 1rem;
+            }
         }
         
         @media (max-width: 576px) {
@@ -487,6 +554,17 @@
             
             .section {
                 padding: 3rem 0;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            .bottom-btn {
+                width: 80%;
+                text-align: center;
             }
         }
     </style>
@@ -688,6 +766,23 @@
             </div>
         </div>
     </footer>
+
+    <!-- TRĪS POGAS - PIEVIENOTAS PAŠĀ APAKŠĀ -->
+    <div class="bottom-buttons">
+        <div class="container">
+            <div class="buttons-container">
+                <a href="https://example.com/saite1" class="bottom-btn btn-primary-bottom" target="_blank" rel="noopener">
+                    <i class="fas fa-book-open"></i> Pirmā poga
+                </a>
+                <a href="https://example.com/saite2" class="bottom-btn btn-secondary-bottom" target="_blank" rel="noopener">
+                    <i class="fas fa-hand-holding-heart"></i> Otrā poga
+                </a>
+                <a href="https://example.com/saite3" class="bottom-btn btn-accent-bottom" target="_blank" rel="noopener">
+                    <i class="fas fa-leaf"></i> Trešā poga
+                </a>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Mobīlā izvēlnes funkcionalitāte
